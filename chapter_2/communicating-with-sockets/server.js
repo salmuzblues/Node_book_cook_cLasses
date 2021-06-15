@@ -5,7 +5,8 @@ const PORT = 3000;
 
 net.createServer((socket) => { // ConnectionListener
   console.log('Client connected');
-  socket.on('data', (name) => {
+  // data event 
+  socket.on('data', (name) => { // register a function to execute each time data was received.
     socket.write(`Hello ${name}`);
   });
 })
