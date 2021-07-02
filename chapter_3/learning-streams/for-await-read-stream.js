@@ -1,0 +1,11 @@
+const fs = require('fs');
+const rs = fs.createReadStream('./file.txt');
+
+async function run(rs ){
+  for await (const chunk of rs) {
+    console.log('Read chunk: ', chunk.toString());
+  }
+  console.log('No more data.');
+}
+
+run(rs);
