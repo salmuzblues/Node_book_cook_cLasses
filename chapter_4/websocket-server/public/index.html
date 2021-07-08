@@ -1,0 +1,29 @@
+<h1>Communicating with WebSockets</h1>
+<input id="msg" /><button id="send">Send</button>
+<div id="output"></div>
+<script>
+  // connection to our WebSocket Server
+  const ws = new WebSocket('ws://localhost:3000');
+  const output = document.getElementById('output');
+  const send = document.getElementById('send'); // this is button
+  // create event to send to the server 
+  send.addEventListener('click', () => {
+    const msg = document.getElementById('msg').value;
+    ws.send(msg); // this it will send msg 
+    output.innerHTML += log('Sent', msg);
+  });
+  function log( event, msg){
+    return "<p>" + event + ": " + msg + "</p>";
+  }
+  // Event listeners
+  // We use these event listeners to add output to our web page
+  ws.onmessage = function (e) {
+    output.innerHTML += log('Received', e.data);  
+  }
+  ws.onclose = function (e) {
+    output.innerHTML += log('Disconnected', e.code);
+  };
+  ws.onerror = function (e){
+    output.innerHTML += log('Error', e.data);
+  }
+</script>
